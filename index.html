@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Resume Generator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- jsPDF CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Container for the form and resume output -->
+    <div class="max-w-2xl mx-auto p-6">
+        <!-- Form Section -->
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+            <h1 class="text-2xl font-bold mb-4">Resume Generator</h1>
+            <form id="resume-form" class="space-y-4">
+                <!-- Image Input -->
+                <div>
+                    <label for="image" class="block text-gray-700 font-bold">Upload Photo</label>
+                    <input type="file" id="image" class="mt-1 block w-full px-3 py-2 bg-gray-100 border rounded-md" accept="image/*">
+                </div>
+
+                <!-- Name Input -->
+                <div>
+                    <label for="name" class="block text-gray-700 font-bold">Full Name</label>
+                    <input id="name" type="text" class="mt-1 block w-full px-3 py-2 bg-gray-100 border rounded-md" placeholder="Your Name">
+                </div>
+
+                <!-- Title Input -->
+                <div>
+                    <label for="title" class="block text-gray-700 font-bold">Job Title</label>
+                    <input id="title" type="text" class="mt-1 block w-full px-3 py-2 bg-gray-100 border rounded-md" placeholder="Your Job Title">
+                </div>
+
+                <!-- Summary Input -->
+                <div>
+                    <label for="summary" class="block text-gray-700 font-bold">Summary</label>
+                    <textarea id="summary" rows="3" class="mt-1 block w-full px-3 py-2 bg-gray-100 border rounded-md" placeholder="A brief introduction"></textarea>
+                </div>
+
+                <!-- Experience Input -->
+                <div>
+                    <label for="experience" class="block text-gray-700 font-bold">Experience</label>
+                    <textarea id="experience" rows="3" class="mt-1 block w-full px-3 py-2 bg-gray-100 border rounded-md" placeholder="Work experience"></textarea>
+                </div>
+
+                <!-- Generate Resume Button -->
+                <button type="button" onclick="generateResume()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                    Generate Resume
+                </button>
+            </form>
+        </div>
+
+        <!-- Resume Output Section -->
+        <div id="resume-output" class="mt-10 p-6 bg-white rounded-lg shadow-lg hidden">
+            <h2 class="text-3xl font-bold text-gray-800" id="display-name"></h2>
+            <h3 class="text-xl text-gray-600" id="display-title"></h3>
+            <p class="mt-4 text-gray-700" id="display-summary"></p>
+            <h4 class="text-xl font-bold mt-6 text-gray-800">Experience</h4>
+            <p class="text-gray-700" id="display-experience"></p>
+
+            <!-- Display Image -->
+            <img src="" id="display-image" alt="Profile Image" class="mt-6 w-32 h-32 rounded-full">
+
+            <!-- Generate PDF Button -->
+            <button type="button" onclick="generatePDF()" class="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+                Download as PDF
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript to handle form submission and PDF generation -->
+    <script>
+        function generateResume() {
+            // Get form data
+            const name = document.getElementById('name').value;
+            const title = document.getElementById('title').value;
+            const summary = document.getElementById('summary').value;
+            const experience = document.getElementById('experience').value;
+            const imageInput = document.getElementById('image').files[0]; // Get the image file
+
+            // Display the resume text
+            document.getElementById('display-name').innerText = name;
+            document.getElementById('display-title').innerText = title;
+            document.getElementById('display-summary').innerText = summary;
+            document.getElementById('display-experience').innerText = experience;
+
+            // Display the uploaded image using FileReader
+            if (imageInput) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('display-image').src = e.target.result;
+                };
+                reader.readAsDataURL(imageInput); // Read the image file as a data URL
+            }
+
+            // Show the resume output section
+            document.getElementById('resume-output').classList.remove('hidden');
+        }
+
+        function generatePDF() {
+            const { jsPDF } = window.jspdf; // Get jsPDF object
+            const doc = new jsPDF(); // Create a new jsPDF instance
+
+            // Get the data from the resume display
+            const name = document.getElementById('display-name').innerText;
+            const title = document.getElementById('display-title').innerText;
+            const summary = document.getElementById('display-summary').innerText;
+            const experience = document.getElementById('display-experience').innerText;
+            const imageSrc = document.getElementById('display-image').src;
+
+            // Add text to the PDF
+            doc.text(name, 10, 20);
+            doc.text(title, 10, 30);
+            doc.text('Summary:', 10, 40);
+            doc.text(summary, 10, 50);
+            doc.text('Experience:', 10, 70);
+            doc.text(experience, 10, 80);
+
+            // Add image to the PDF if available
+            if (imageSrc) {
+                const img = new Image();
+                img.src = imageSrc;
+                img.onload = function () {
+                    doc.addImage(img, 'JPEG', 150, 10, 40, 40); // Adjust the position and size of the image in the PDF
+                    doc.save('resume.pdf'); // Save the PDF with the image
+                };
+            } else {
+                doc.save('resume.pdf'); // Save the PDF without image
+            }
+        }
+    </script>
+
+</body>
+</html>
