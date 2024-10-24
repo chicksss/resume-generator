@@ -1,138 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simple Resume Generator</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- jsPDF CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-</head>
-<body class="bg-gray-100">
-
+  </head>
+  <body class="bg-gray-100 p-5">
     <!-- Container for the form and resume output -->
-    <div class="max-w-2xl mx-auto p-6">
-        <!-- Form Section -->
-        <div class="bg-white p-6 rounded-lg shadow-lg">
-            <h1 class="text-2xl font-bold mb-4">Resume Generator</h1>
-            <form id="resume-form" class="space-y-4">
-                <!-- Image Input -->
-                <div>
-                    <label for="image" class="block text-gray-700 font-bold">Upload Photo</label>
-                    <input type="file" id="image" class="mt-1 block w-full px-3 py-2 bg-gray-100 border rounded-md" accept="image/*">
-                </div>
+    <div class="md:flex md:justify-flex md:gap-5 grid grid-cols-1">
+      <!-- Form Section -->
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h1 class="text-2xl font-bold mb-4">Resume Generator</h1>
+        <form id="resume-form" class="space-y-4">
+          <!-- Image Input -->
+          <div>
+            <label for="image" class="block text-gray-700 font-bold"
+              >Upload Photo</label
+            >
+            <input
+              type="file"
+              id="image"
+              class="mt-1 block w-full px-3 py-2 bg-gray-100 border rounded-md"
+              accept="image/*"
+            />
+          </div>
 
-                <!-- Name Input -->
-                <div>
-                    <label for="name" class="block text-gray-700 font-bold">Full Name</label>
-                    <input id="name" type="text" class="mt-1 block w-full px-3 py-2 bg-gray-100 border rounded-md" placeholder="Your Name">
-                </div>
+          <div class="flex justify-flex gap-5">
+            <!-- Name Input -->
+            <div>
+              <label for="name" class="block text-gray-700 font-bold"
+                >Full Name</label
+              >
+              <input
+                id="name"
+                type="text"
+                class="mt-1 block w-full px-3 py-2 bg-gray-100 border rounded-md"
+                placeholder="Your Name"
+              />
+            </div>
 
-                <!-- Title Input -->
-                <div>
-                    <label for="title" class="block text-gray-700 font-bold">Job Title</label>
-                    <input id="title" type="text" class="mt-1 block w-full px-3 py-2 bg-gray-100 border rounded-md" placeholder="Your Job Title">
-                </div>
+            <!-- Address Input -->
+            <div>
+              <label for="name" class="block text-gray-700 font-bold"
+                >Adddress</label
+              >
+              <input
+                id="address"
+                type="text"
+                class="mt-1 block w-full px-3 py-2 bg-gray-100 border rounded-md"
+                placeholder="Your Address"
+              />
+            </div>
 
-                <!-- Summary Input -->
-                <div>
-                    <label for="summary" class="block text-gray-700 font-bold">Summary</label>
-                    <textarea id="summary" rows="3" class="mt-1 block w-full px-3 py-2 bg-gray-100 border rounded-md" placeholder="A brief introduction"></textarea>
-                </div>
+            <!-- Contact Input -->
+            <div>
+              <label for="name" class="block text-gray-700 font-bold"
+                >Contact</label
+              >
+              <input
+                id="contact"
+                type="number"
+                class="mt-1 block w-full px-3 py-2 bg-gray-100 border rounded-md"
+                placeholder="Your Contact"
+              />
+            </div>
+          </div>
 
-                <!-- Experience Input -->
-                <div>
-                    <label for="experience" class="block text-gray-700 font-bold">Experience</label>
-                    <textarea id="experience" rows="3" class="mt-1 block w-full px-3 py-2 bg-gray-100 border rounded-md" placeholder="Work experience"></textarea>
-                </div>
+            <!-- Email Input -->
+            <div>
+                <label for="name" class="block text-gray-700 font-bold"
+                  >Email</label
+                >
+                <input
+                  id="email"
+                  type="email"
+                  class="mt-1 block w-full px-3 py-2 bg-gray-100 border rounded-md"
+                  placeholder="Your Email"
+                />
+              </div>
+    
 
-                <!-- Generate Resume Button -->
-                <button type="button" onclick="generateResume()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                    Generate Resume
-                </button>
-            </form>
-        </div>
+          
+          <!-- Summary Input -->
+          <div>
+            <label for="summary" class="block text-gray-700 font-bold"
+              >Career Objective</label
+            >
+            <textarea
+              id="summary"
+              rows="3"
+              class="mt-1 block w-full px-3 py-2 bg-gray-100 border rounded-md"
+              placeholder="A brief introduction"
+            ></textarea>
+          </div>
 
-        <!-- Resume Output Section -->
-        <div id="resume-output" class="mt-10 p-6 bg-white rounded-lg shadow-lg hidden">
+              <!-- Experience Input -->
+              <div>
+                <label for="experience" class="block text-gray-700 font-bold"
+                  >Experience</label
+                >
+                <textarea
+                  id="experience"
+                  rows="10"
+                  class="mt-1 block w-full px-3 py-2 bg-gray-100 border rounded-md"
+                  placeholder="Work experience"
+                ></textarea>
+              </div>
+
+           <!-- education Input -->
+           <div>
+            <label for="summary" class="block text-gray-700 font-bold"
+              >Education</label
+            >
+            <textarea
+              id="education"
+              rows="10"
+              class="mt-1 block w-full px-3 py-2 bg-gray-100 border rounded-md"
+              placeholder="A brief education"
+            ></textarea>
+          </div>
+
+
+           
+    
+
+        
+          <!-- skills Input -->
+          <div>
+            <label for="title" class="block text-gray-700 font-bold"
+              >Skills</label
+            >
+            <textarea
+            id="title"
+            rows="10"
+            class="mt-1 block w-full px-3 py-2 bg-gray-100 border rounded-md"
+            placeholder="Add Skills "
+          ></textarea>
+          </div>
+
+     
+          <!-- Generate Resume Button -->
+          <button
+            type="button"
+            onclick="generateResume()"
+            class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
+            Generate Resume
+          </button>
+        </form>
+      </div>
+
+      <!-- Resume Output Section -->
+      <div
+        id="resume-output"
+        class="bg-white rounded-lg shadow-lg hidden px-10 py-5 w-full"
+      >
+        <div class="flex justify-between">
+          <div class="grid grid-cols-1">
             <h2 class="text-3xl font-bold text-gray-800" id="display-name"></h2>
-            <h3 class="text-xl text-gray-600" id="display-title"></h3>
-            <p class="mt-4 text-gray-700" id="display-summary"></p>
-            <h4 class="text-xl font-bold mt-6 text-gray-800">Experience</h4>
-            <p class="text-gray-700" id="display-experience"></p>
-
-            <!-- Display Image -->
-            <img src="" id="display-image" alt="Profile Image" class="mt-6 w-32 h-32 rounded-full">
-
-            <!-- Generate PDF Button -->
-            <button type="button" onclick="generatePDF()" class="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
-                Download as PDF
-            </button>
+            <p class="text-gray-700" id="display-address"></p>
+            <p class="text-gray-700" id="display-contact"></p>
+            <p class="text-gray-700" id="display-email"></p>
+          </div>
+          <!-- Display Image -->
+          <img
+            src=""
+            id="display-image"
+            alt="Profile Image"
+            class="mt-6 w-32 h-32 rounded-lg"
+          />
         </div>
+        <h4 class="text-xl font-bold mt-6 text-gray-800">Skills</h4>
+        <p class="text-sm text-gray-600" id="display-title"></p>
+        <h4 class="text-xl font-bold mt-6 text-gray-800">Objectives</h4>
+        <p class="mt-4 text-gray-700" id="display-summary"></p>
+        <h4 class="text-xl font-bold mt-6 text-gray-800">Experience</h4>
+        <p class="text-gray-700" id="display-experience"></p>
+
+        <h4 class="text-xl font-bold mt-6 text-gray-800">Education</h4>
+        <p class="text-gray-700" id="display-education"></p>
+
+        <!-- Generate PDF Button -->
+        <button
+          type="button"
+          onclick="generatePDF()"
+          class="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+        >
+          Download as PDF
+        </button>
+      </div>
     </div>
 
     <!-- JavaScript to handle form submission and PDF generation -->
     <script>
-        function generateResume() {
-            // Get form data
-            const name = document.getElementById('name').value;
-            const title = document.getElementById('title').value;
-            const summary = document.getElementById('summary').value;
-            const experience = document.getElementById('experience').value;
-            const imageInput = document.getElementById('image').files[0]; // Get the image file
+      function generateResume() {
+        // Get form data
+        const name = document.getElementById("name").value;
+        const title = document.getElementById("title").value;
+        const summary = document.getElementById("summary").value;
+        const experience = document.getElementById("experience").value;
+        const imageInput = document.getElementById("image").files[0]; // Get the image file
+        const address = document.getElementById("address").value;
 
-            // Display the resume text
-            document.getElementById('display-name').innerText = name;
-            document.getElementById('display-title').innerText = title;
-            document.getElementById('display-summary').innerText = summary;
-            document.getElementById('display-experience').innerText = experience;
+        const contact = document.getElementById("contact").value;
+        const email = document.getElementById("email").value;
+        
 
-            // Display the uploaded image using FileReader
-            if (imageInput) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    document.getElementById('display-image').src = e.target.result;
-                };
-                reader.readAsDataURL(imageInput); // Read the image file as a data URL
-            }
+        const education = document.getElementById("education").value;
 
-            // Show the resume output section
-            document.getElementById('resume-output').classList.remove('hidden');
+        // Display the resume text
+        document.getElementById("display-name").innerText = name;
+        document.getElementById("display-title").innerText = title;
+        document.getElementById("display-summary").innerText = summary;
+        document.getElementById("display-experience").innerText = experience;
+        document.getElementById("display-address").innerText = address;
+
+        document.getElementById("display-contact").innerText = contact;
+
+        document.getElementById("display-email").innerText = email;
+        document.getElementById("display-education").innerText = education;
+
+        // Display the uploaded image using FileReader
+        if (imageInput) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            document.getElementById("display-image").src = e.target.result;
+          };
+          reader.readAsDataURL(imageInput); // Read the image file as a data URL
         }
 
-        function generatePDF() {
-            const { jsPDF } = window.jspdf; // Get jsPDF object
-            const doc = new jsPDF(); // Create a new jsPDF instance
+        // Show the resume output section
+        document.getElementById("resume-output").classList.remove("hidden");
+      }
 
-            // Get the data from the resume display
-            const name = document.getElementById('display-name').innerText;
-            const title = document.getElementById('display-title').innerText;
-            const summary = document.getElementById('display-summary').innerText;
-            const experience = document.getElementById('display-experience').innerText;
-            const imageSrc = document.getElementById('display-image').src;
+      function generatePDF() {
+        const { jsPDF } = window.jspdf; // Get jsPDF object
+        const doc = new jsPDF(); // Create a new jsPDF instance
 
-            // Add text to the PDF
-            doc.text(name, 10, 20);
-            doc.text(title, 10, 30);
-            doc.text('Summary:', 10, 40);
-            doc.text(summary, 10, 50);
-            doc.text('Experience:', 10, 70);
-            doc.text(experience, 10, 80);
+        // Get the data from the resume display
+        const name = document.getElementById("display-name").innerText;
+        const title = document.getElementById("display-title").innerText;
+        const summary = document.getElementById("display-summary").innerText;
+        const experience =
+          document.getElementById("display-experience").innerText;
+        const imageSrc = document.getElementById("display-image").src;
+        const address = document.getElementById("display-address").innerText;
 
-            // Add image to the PDF if available
-            if (imageSrc) {
-                const img = new Image();
-                img.src = imageSrc;
-                img.onload = function () {
-                    doc.addImage(img, 'JPEG', 150, 10, 40, 40); // Adjust the position and size of the image in the PDF
-                    doc.save('resume.pdf'); // Save the PDF with the image
-                };
-            } else {
-                doc.save('resume.pdf'); // Save the PDF without image
-            }
+        const contact = document.getElementById("display-contact").innerText;
+
+        const email = document.getElementById("display-email").innerText;
+        const education = document.getElementById("display-education").innerText;
+
+        let y = 20;  // Start Y-coordinate
+
+// Add Name (Bold)
+doc.setFont("helvetica", "bold");
+doc.text(name, 10, y);
+
+// Add Address, Contact, Email (Normal)
+doc.setFont("helvetica", "normal");
+y += 10;  // Move down for the next text
+doc.text(address, 10, y);
+
+y += 10;
+doc.text(contact, 10, y);
+
+y += 10;
+doc.text(email, 10, y);
+
+// Add Skills (Bold)
+doc.setFont("helvetica", "bold");
+y += 10;  // Move down for Skills section
+doc.text("Skills:", 10, y);
+
+// Add Title (Normal)
+doc.setFont("helvetica", "normal");
+y += 10;
+doc.text(title, 10, y);
+
+// Add Summary (Bold and Normal)
+doc.setFont("helvetica", "bold");
+y += 20;  // Move down for Summary section
+doc.text("Summary:", 10, y);
+
+doc.setFont("helvetica", "normal");
+y += 10;
+let summaryLines = doc.splitTextToSize(summary, 180);  // Split long text into multiple lines
+doc.text(summaryLines, 10, y);
+
+// Adjust y based on the number of lines in the summary
+y += summaryLines.length * 10;  // Assuming 10 units per line, adjust according to font size
+
+// Add Experience (Bold and Normal)
+doc.setFont("helvetica", "bold");
+y += 20;  // Add space before Experience section
+doc.text("Experience:", 10, y);
+
+doc.setFont("helvetica", "normal");
+y += 10;
+let experienceLines = doc.splitTextToSize(experience, 180);  // Split long text into multiple lines
+doc.text(experienceLines, 10, y);
+
+// Adjust y based on the number of lines in experience
+y += experienceLines.length * 10;  // Adjust based on the number of lines
+
+// Add Education (Bold and Normal)
+doc.setFont("helvetica", "bold");
+y += 20;  // Add space before Education section
+doc.text("Education:", 10, y);
+
+doc.setFont("helvetica", "normal");
+y += 10;
+let educationLines = doc.splitTextToSize(education, 180);  // Split long text into multiple lines
+doc.text(educationLines, 10, y);
+
+// Adjust y based on the number of lines in education
+y += educationLines.length * 10;  // Adjust based on the number of lines
+
+
+
+
+        // Add image to the PDF if available
+        if (imageSrc) {
+          const img = new Image();
+          img.src = imageSrc;
+          img.onload = function () {
+            doc.addImage(img, "JPEG", 150, 10, 40, 40); // Adjust the position and size of the image in the PDF
+            doc.save("resume.pdf"); // Save the PDF with the image
+          };
+        } else {
+          doc.save("resume.pdf"); // Save the PDF without image
         }
+      }
     </script>
-
-</body>
+  </body>
 </html>
